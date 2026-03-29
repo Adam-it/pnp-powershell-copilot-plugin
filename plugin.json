@@ -1,0 +1,22 @@
+{
+  "name": "PnP-PowerShell-Plugin",
+  "description": "",
+  "version": "0.0.1",
+  "author": {
+    "name": "Adam Wójcik"
+  },
+  "repository": "https://github.com/Adam-it/pnp-powershell-copilot-plugin",
+  "license": "MIT",
+  "keywords": [
+    "powershell",
+    "pnp"
+  ],
+  "agents": [
+    "./agents"
+  ],
+  "skills": [
+    "./skills/pnp-ps-create-script",
+    "./skills/pnp-ps-manage-m365",
+    "./skills/pnp-ps-setup"
+  ]
+}
