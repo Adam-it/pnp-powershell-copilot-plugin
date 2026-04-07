@@ -1,7 +1,7 @@
 {
-  "name": "PnP-PowerShell-Plugin",
-  "description": "",
-  "version": "0.0.1",
+  "name": "pnp-powershell-plugin",
+  "description": "Provides a dedicated agent with a set of skills that allows the user to interact with the PnP PowerShell module using natural language to manage your Microsoft 365 tenant.",
+  "version": "1.0.0",
   "author": {
     "name": "Adam Wójcik"
   },
