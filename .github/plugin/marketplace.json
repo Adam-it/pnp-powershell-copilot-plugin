@@ -1,8 +1,0 @@
-{
-  "plugins": [
-    {
-      "name": "PnP PowerShell Plugin",
-      "path": "."
-    }
-  ]
-}
