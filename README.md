@@ -31,7 +31,7 @@ In GitHub Copilot Chat view switch to `PnP PowerShell Agent` to start using the 
 
 ### GitHub Copilot CLI
 
-// TODO
+In order to add the plugin to GitHub Copilot CLI simply run the Copilot CLI in terminal and run `/plugin install adam-it/pnp-powershell-copilot-plugin`. After that use the `/agent` command to switch to `PnP PowerShell Agent`.
 
 ## Usage examples
 
@@ -49,7 +49,7 @@ In order to try out how PnP PowerShell agent may manage your tenant simply ask s
 
 ```
 Create a new site on my tenant lets say PnP-PowerShell-Tests with a site level app catalog. Change the theme to the site to whatever. 
-Create a test-data list on that site with a new custom content type with a custom column and adda few items. Add a new page to the site and add a list webpart to this page and make it a home page. 
+Create a test-data list on that site with a new custom content type with a custom column and add a few items. Add a new page to the site and add a list web part to this page and make it a home page. 
 ```
 
 To test out how the agent may create scripts for you, you can ask something like:
