@@ -2,7 +2,6 @@
 name: PnP PowerShell Agent
 description: "Use when: the user wants to perform any operation towards Microsoft 365 tenant using PnP PowerShell commands, or wants to create a script that primarily uses PnP PowerShell."
 tools: [execute, read, agent, edit, search, web]
-model: ['Claude Sonnet 4.6 (copilot)', 'Claude Opus 4.6 (copilot)']
 ---
 
 ## Role

@@ -2,6 +2,8 @@
 
 This Copilot Plugin provides a dedicated agent with a set of skills that allows the user to interact with the PnP PowerShell module using natural language. Imagine asking Copilot to "Get all the sites in my tenant" or "Create a new SharePoint site for my project with predefined library and pages" and having it execute the appropriate PnP PowerShell commands on your behalf.
 
+> Tip: For the best experience please use the plugin with 'Claude Sonnet 4.6' or 'Claude Opus 4.6' or similar or newer and better models.
+
 ## Capabilities - skills
 
 Below is the list of skills that are currently implemented and are available to the agent:
@@ -22,8 +24,10 @@ This skill enables Copilot to generate production-ready PowerShell scripts that 
 
 ### VS Code
 
-The easiest way to configure this plugin in VS Code is by opening the chat customization view by executing the VS Code command `Chat: Open Customizations`, then go to the plugin tab and hit the `+` button to add a new plugin. After that provide the GitHub repository URL of this plugin `https://github.com/Adam-it/pnp-powershell-copilot-plugin` and hit enter. After that you should see a new agent and skills in the chat customizations view. 
-In GitHub Copilot Chat view switch to `PnP PowerShell Agent`.
+> Note: The below setup for VS Code might be change quite soon
+
+Currently VS Code does not support installing plugin from other GitHub Repo then the approved or added plugin marketplaces, this might change very soon, but for now in order to use the plugin you need to clone this repository locally. Then open VS Code and use `Chat: Plugin Locations` setting to add the path to the cloned repository. After that you should be able to see `PnP PowerShell Agent` in the list of available plugins when using `Chat: Open Customizations` view, and together with this plugin you should see the related skills and agent.
+In GitHub Copilot Chat view switch to `PnP PowerShell Agent` to start using the plugin.
 
 ### GitHub Copilot CLI
 
