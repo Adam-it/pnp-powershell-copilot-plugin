@@ -53,3 +53,7 @@ To test out how the agent may create scripts for you, you can ask something like
 ```
 Create a script that will allow me to create a backup list with all the items of a given list in a given site and then create that given list
 ```
+
+## Plugin evaluation 
+
+To justify the PnP PowerShell Copilot Plugin positive impact I am performing the following evaluations that are used in order to score and improve the plugin: https://github.com/Adam-it/agent-tests-pnp-powershell.
