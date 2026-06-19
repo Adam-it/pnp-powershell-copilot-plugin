@@ -15,8 +15,9 @@
     "./agents"
   ],
   "skills": [
-    "./skills/pnp-ps-create-script",
-    "./skills/pnp-ps-manage-m365",
     "./skills/pnp-ps-setup"
+  ],
+  "commands": [
+    "./commands"
   ]
 } 

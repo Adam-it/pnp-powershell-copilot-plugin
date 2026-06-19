@@ -1,18 +1,28 @@
 ---
 name: pnp-ps-setup
-description: "Set up PnP PowerShell environment. Use when: installing PnP PowerShell module, registering Entra ID app for PnP PowerShell, configuring permissions, authenticating to Microsoft 365 tenant, connecting with Connect-PnPOnline, setting up app-only or delegated access."
-argument-hint: "Describe what you need: install module, register app, configure permissions, or authenticate"
+description: "Set up local machine environment for PnP PowerShell usage. Use when user wants to validate or setup local machine for PnP PowerShell usage. Stages included: installing PnP PowerShell module, registering Entra ID app for PnP PowerShell, configuring permissions, authenticating to Microsoft 365 tenant, connecting with Connect-PnPOnline, setting up app-only or delegated access."
 ---
 
 # PnP PowerShell Setup
 
-Set up the complete PnP PowerShell environment: module installation, Entra ID app registration, permission configuration, and authentication.
+Set up local machine environment for PnP PowerShell usage. Stages included: module installation, Entra ID app registration, permission configuration, and authentication.
+
+## Rules
+
+- NEVER assume user intent, if instructions state to clarify user intent, ALWAYS ask the user for confirmation before proceeding.
+- Answers MUST be short and concise, and MUST NOT include any extra information, just state what was done and what is the result.
+- ALWAYS follow the procedure in the order specified!
+- DO NOT fetch for additional information from web, instructions that are present here are enough. You MUST use them
 
 ## Procedure
 
-Follow the stages below in order. Skip stages the user has already completed.
+Follow the stages below in order.
 
-### Stage 1: Module Installation
+### Stage 1: Clarify user intent
+
+Clarify if user wants to set up PnP PowerShell for the first time, or if they want to validate an existing setup. If the user wants to validate an existing setup, use the below steps as baseline checks that should be validated and confirmed and if any check would fail first, ALWAYS inform the user and wait for user confirmation before fixing it.
+
+### Stage 2: Module Installation
 
 1. Check if PnP.PowerShell is already installed:
 
@@ -26,9 +36,17 @@ Get-Module PnP.PowerShell -ListAvailable
 $PSVersionTable.PSVersion
 ```
 
-If PowerShell version is below 7.4.0, inform the user they need to upgrade. Link: https://learn.microsoft.com/powershell/scripting/install/installing-powershell
+If PowerShell version is below 7.4.0, inform the user they must upgrade before continuing and STOP. Do not proceed to module installation until the user confirms they have upgraded to PowerShell 7.4.0 or later. Windows PowerShell will not work. Link: https://learn.microsoft.com/powershell/scripting/install/installing-powershell
 
 3. If the module is not installed, install the stable build:
+
+If the user receives an **Untrusted repository** warning or error, instruct them to first run:
+
+```powershell
+Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+```
+
+Then install the module:
 
 ```powershell
 Install-Module PnP.PowerShell -Scope CurrentUser
@@ -46,11 +64,14 @@ Install-Module PnP.PowerShell -Scope CurrentUser -AllowPrerelease -SkipPublisher
 Update-Module PnP.PowerShell -Scope CurrentUser
 ```
 
-### Stage 2: Entra ID App Registration
+### Stage 3: Entra ID App Registration
 
 > Every PnP PowerShell connection requires a custom Entra ID Application Registration. This is mandatory since September 9, 2024.
 
-**Ask the user before proceeding:**
+1. Validate if user environment variable `ENTRAID_CLIENT_ID` is set with app registration ID. If yes STOP and ALWAYS clarify with the user if this app should be used for the sign in. If not, proceed to create a new app registration.
+If user confirms proceed to stage 4, otherwise proceed to create a new app registration.
+
+**ALWAYS ASK THE USER BEFORE PROCEEDING:**
 
 1. **Access type** — Will this be used for:
    - **Delegated (Interactive)** — The user will log in interactively each time (suitable for manual script execution)
@@ -73,7 +94,9 @@ Update-Module PnP.PowerShell -Scope CurrentUser
 | Microsoft Graph operations | Either | Use `-Verbose` on cmdlets or consult docs for specific permissions |
 | Power Platform operations | Delegated | Azure Service Management > user_impersonation AND Dynamics CRM > user_impersonation AND PowerApps Service > User |
 
-Ask the user which scopes they need. Recommend starting with minimum permissions and expanding as needed.
+Ask the user which scopes they need. 
+
+**THIS IS A MUST! ALWAYS CONFIRM WITH THE USER BEFORE PROCEEDING the access type, tenant name, and permission scopes!**
 
 #### Option A: Delegated (Interactive) App Registration
 
@@ -122,13 +145,9 @@ Grant-PnPAzureADAppSitePermission -AppId "<Client ID>" -DisplayName "PnP PowerSh
 
 > Running `Grant-PnPAzureADAppSitePermission` requires connecting with a **different** app registration that has `AllSites.FullControl` delegated permission, logged in as a Global or SharePoint Administrator.
 
-### Stage 3: Authentication
+### Stage 4: Authentication
 
-Based on the app registration type created in Stage 2, guide the user to connect.
-
-**Ask the user** for:
-- Their SharePoint Online tenant URL (e.g., `contoso.sharepoint.com`)
-- The **Client ID** from the app registration created in Stage 2
+Based on the app registration type created in Stage 3, perform the authentication and validate it.
 
 #### For Delegated (Interactive) Apps
 
@@ -136,24 +155,6 @@ Based on the app registration type created in Stage 2, guide the user to connect
 
 ```powershell
 Connect-PnPOnline [yourtenant].sharepoint.com -Interactive -ClientId <clientid>
-```
-
-**Device login** (when authenticating from another device or no GUI browser available):
-
-```powershell
-Connect-PnPOnline [yourtenant].sharepoint.com -DeviceLogin -ClientId <clientid>
-```
-
-**Web Account Manager** (Windows 10 1703+ only — supports Windows Hello, FIDO keys, SSO):
-
-```powershell
-Connect-PnPOnline [yourtenant].sharepoint.com -OSLogin -ClientId <clientid>
-```
-
-**Username/password** (no MFA support — less recommended):
-
-```powershell
-Connect-PnPOnline [yourtenant].sharepoint.com -ClientId <clientid> -Credentials (Get-Credential)
 ```
 
 #### For App Only Apps
@@ -168,18 +169,6 @@ Connect-PnPOnline [yourtenant].sharepoint.com -ClientId <clientid> -Tenant [your
 
 If the .pfx has a password, add:
 `-CertificatePassword (ConvertTo-SecureString -AsPlainText 'password' -Force)`
-
-**Using certificate thumbprint** (certificate stored in Windows Certificate Store):
-
-```powershell
-Connect-PnPOnline [yourtenant].sharepoint.com -ClientId <clientid> -Tenant [yourtenant].onmicrosoft.com -Thumbprint <certificate thumbprint>
-```
-
-**Using base64-encoded certificate** (common for Azure Functions):
-
-```powershell
-Connect-PnPOnline [yourtenant].sharepoint.com -ClientId <clientid> -Tenant [yourtenant].onmicrosoft.com -CertificateBase64Encoded <base64 string>
-```
 
 #### Validate the Connection
 
