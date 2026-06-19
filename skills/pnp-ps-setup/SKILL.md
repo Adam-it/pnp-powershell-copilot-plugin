@@ -1,6 +1,7 @@
 ---
 name: pnp-ps-setup
 description: "Set up local machine environment for PnP PowerShell usage. Use when user wants to validate or setup local machine for PnP PowerShell usage. Stages included: installing PnP PowerShell module, registering Entra ID app for PnP PowerShell, configuring permissions, authenticating to Microsoft 365 tenant, connecting with Connect-PnPOnline, setting up app-only or delegated access."
+user-invocable: true
 ---
 
 # PnP PowerShell Setup

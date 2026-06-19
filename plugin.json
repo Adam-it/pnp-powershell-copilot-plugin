@@ -16,8 +16,5 @@
   ],
   "skills": [
     "./skills/pnp-ps-setup"
-  ],
-  "commands": [
-    "./commands"
   ]
 } 
