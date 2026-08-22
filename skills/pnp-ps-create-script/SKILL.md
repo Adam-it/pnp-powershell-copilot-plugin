@@ -1,9 +1,8 @@
-// 🏗️ Work in progress..
-
 ---
 name: pnp-ps-create-script
 description: "Create PowerShell scripts using PnP PowerShell. Use when: writing automation scripts for Microsoft 365, building reusable PnP PowerShell scripts, scaffolding new scripts with parameters error handling and logging, following PowerShell best practices, creating production-ready M365 administration scripts."
-argument-hint: "Describe what the script should do"
+argument-hint: "// 🏗️ Work in progress.."
+user-invocable: false
 ---
 
 # Creating PnP PowerShell Scripts

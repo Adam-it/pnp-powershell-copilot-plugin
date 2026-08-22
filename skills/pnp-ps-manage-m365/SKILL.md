@@ -1,14 +1,13 @@
-// 🏗️ Work in progress..
-
 ---
 name: pnp-ps-manage-m365
 description: "Use PnP PowerShell cmdlets to manage Microsoft 365 services. Use when: managing SharePoint Online, Microsoft Teams channels users, Planner tasks plans, Entra ID groups users, Power Platform flows apps, Microsoft Graph, taxonomy, search, tenant settings, Viva Engage, Purview retention labels."
 argument-hint: "Describe the M365 management task you want to perform"
+user-invocable: true
 ---
 
 # Using PnP PowerShell to Manage Microsoft 365
 
-Guide for finding and using PnP PowerShell cmdlets (790+) to manage Microsoft 365 services.
+Guide for finding and using PnP PowerShell cmdlets to manage Microsoft 365.
 
 ## Prerequisites
 
@@ -82,7 +81,7 @@ The documentation URL pattern is:
 https://pnp.github.io/powershell/cmdlets/<CmdletName>.html
 ```
 
-The user can also use PowerShell built-in help:
+or use the built-in help:
 
 ```powershell
 Get-Help <CmdletName> -Full
@@ -120,119 +119,3 @@ Before executing, consider:
 | Connection expired | Reconnect using `Connect-PnPOnline`. |
 | Unexpected results | Check connection context with `Get-PnPConnection`. Ensure correct site URL. |
 | Throttling | PnP PowerShell handles throttling automatically. For large batch operations, use `Invoke-PnPBatch`. |
-
-### Common Task Patterns
-
-#### SharePoint: Lists & Items
-
-```powershell
-# Get all lists
-Get-PnPList
-
-# Get items from a list
-Get-PnPListItem -List "Documents"
-
-# Add an item
-Add-PnPListItem -List "Tasks" -Values @{"Title" = "New Task"; "Status" = "Not Started"}
-
-# Update an item
-Set-PnPListItem -List "Tasks" -Identity 1 -Values @{"Status" = "Completed"}
-```
-
-#### SharePoint: Files & Folders
-
-```powershell
-# Get files in a library
-Get-PnPFolderItem -FolderSiteRelativeUrl "Shared Documents"
-
-# Upload a file
-Add-PnPFile -Path "C:\local\file.docx" -Folder "Shared Documents"
-
-# Download a file
-Get-PnPFile -Url "/sites/mysite/Shared Documents/file.docx" -Path "C:\local" -AsFile
-```
-
-#### SharePoint: Sites
-
-```powershell
-# Get current site info
-Get-PnPSite
-
-# Get all tenant sites (requires tenant admin)
-Get-PnPTenantSite
-
-# Create a new site
-New-PnPSite -Type CommunicationSite -Title "My Site" -Url "https://tenant.sharepoint.com/sites/mysite"
-```
-
-#### Microsoft Teams
-
-```powershell
-# Get all teams
-Get-PnPTeamsTeam
-
-# Create a channel
-Add-PnPTeamsChannel -Team "My Team" -DisplayName "New Channel"
-
-# Add a user to a team
-Add-PnPTeamsUser -Team "My Team" -User "user@contoso.com" -Role Member
-```
-
-#### Microsoft 365 Groups
-
-```powershell
-# Get all groups
-Get-PnPMicrosoft365Group
-
-# Create a new group
-New-PnPMicrosoft365Group -DisplayName "Project Team" -MailNickname "projectteam"
-
-# Add a member
-Add-PnPMicrosoft365GroupMember -Identity "Project Team" -Users "user@contoso.com"
-```
-
-#### Entra ID Users & Groups
-
-```powershell
-# Get a user
-Get-PnPEntraIDUser -Identity "user@contoso.com"
-
-# Get group members
-Get-PnPEntraIDGroupMember -Identity "GroupName"
-```
-
-#### Microsoft Graph (direct calls)
-
-```powershell
-# Call any Graph API endpoint
-Invoke-PnPGraphMethod -Url "v1.0/me" -Method Get
-
-# POST to Graph
-Invoke-PnPGraphMethod -Url "v1.0/groups" -Method Post -Content @{ displayName = "New Group"; mailEnabled = $false; mailNickname = "newgroup"; securityEnabled = $true }
-```
-
-#### Power Platform
-
-```powershell
-# List environments
-Get-PnPPowerPlatformEnvironment
-
-# Get flows
-Get-PnPFlow -Environment (Get-PnPPowerPlatformEnvironment).Name
-```
-
-#### Planner
-
-```powershell
-# Get plans for a group
-Get-PnPPlannerPlan -Group "My Group"
-
-# Add a task
-Add-PnPPlannerTask -Group "My Group" -Plan "My Plan" -Bucket "To Do" -Title "New Task"
-```
-
-## Reference
-
-- Full cmdlet index: https://pnp.github.io/powershell/cmdlets/index.html
-- PnP PowerShell documentation: https://pnp.github.io/powershell/
-- Script samples: https://pnp.github.io/powershell/articles/scriptsamples.html

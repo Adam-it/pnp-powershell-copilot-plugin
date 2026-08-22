@@ -12,13 +12,15 @@ This skill will guide Copilot how to install and configure PnP PowerShell in the
 
 ### Manage Microsoft 365
 
-// 🏗️ Work in progress..
 This skill allows Copilot to execute PnP PowerShell cmdlets to manage Microsoft 365. It can perform a wide range of operations such as creating and managing sites, lists, libraries, pages, permissions, and more. The user can ask Copilot to perform specific tasks like "Create a new communication site for the marketing team" or "Add a new column to the HR list" and it will execute the appropriate PnP PowerShell commands.
 
 ### Create Scripts
 
-// 🏗️ Work in progress..
-This skill enables Copilot to generate production-ready PowerShell scripts that use PnP PowerShell. The user can describe the desired functionality of the script in natural language, and Copilot will scaffold a PowerShell script with parameters, error handling, and logging based on the user's requirements.
+//.... work in progress 👷🏗️
+
+### Evaluate and update scripts
+
+//.... work in progress 👷🏗️
 
 ## Setup - how to use
 

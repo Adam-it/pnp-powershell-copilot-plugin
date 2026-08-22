@@ -15,6 +15,7 @@
     "./agents"
   ],
   "skills": [
-    "./skills/pnp-ps-setup"
+    "./skills/pnp-ps-setup",
+    "./skills/pnp-ps-manage-m365"
   ]
 } 
